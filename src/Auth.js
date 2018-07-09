@@ -18,13 +18,19 @@ export default class Auth extends Component{
     this.state = {message: ''};
     this.logIn = this.logIn.bind(this);
     this.signUp = this.signUp.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
   logIn(){
     let email = this.refs.email.value;
     let password = this.refs.password.value;
     let loginAttempt = firebase.auth().signInWithEmailAndPassword(email, password);
 
-    loginAttempt.catch((error) => {
+    loginAttempt
+    .then(user => {
+      this.setState({message: 'Successfully signed in!'});
+      this.refs.logoutBtn.style.display = 'block';
+    })
+    .catch((error) => {
       this.setState({message: error.message});
     });
   }
@@ -44,6 +50,11 @@ export default class Auth extends Component{
       this.setState({message: error.message});
     });
   }
+  logOut(){
+    firebase.auth().signOut();
+    this.setState({message: 'Successfully signed out!'});
+    this.refs.logoutBtn.style.display = 'none';
+  }
   render(){
     return (
       <div>
@@ -54,7 +65,7 @@ export default class Auth extends Component{
           <br />
           <button onClick={this.logIn} type="button">LogIn</button>
           <button onClick={this.signUp} type="button">SignUp</button>
-          <button type="button">LogOut</button>
+          <button onClick={this.logOut} style={{display: 'none'}} ref="logoutBtn" type="button">LogOut</button>
         </div>
   );
   }
