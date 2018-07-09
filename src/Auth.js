@@ -15,28 +15,45 @@ const firebase = require('firebase');
 export default class Auth extends Component{
   constructor(props){
     super(props);
-    this.state = {error: ''};
+    this.state = {message: ''};
     this.logIn = this.logIn.bind(this);
+    this.signUp = this.signUp.bind(this);
   }
   logIn(){
     let email = this.refs.email.value;
     let password = this.refs.password.value;
-    let loginStatus = firebase.auth().signInWithEmailAndPassword(email, password);
+    let loginAttempt = firebase.auth().signInWithEmailAndPassword(email, password);
 
-    loginStatus.catch((err) => {
-      this.setState({error: err.message});
+    loginAttempt.catch((error) => {
+      this.setState({message: error.message});
+    });
+  }
+  signUp(){
+    let email = this.refs.email.value;
+    let password = this.refs.password.value;
+    let signupAttempt = firebase.auth().createUserWithEmailAndPassword(email, password);
+
+    signupAttempt
+    .then( user => {
+      this.setState({message: 'Welcome ' + user.email});
+      firebase.database().ref('users/' + user.uid).set({
+        email: user.email
+      });
+    })
+    .catch((error) => {
+      this.setState({message: error.message});
     });
   }
   render(){
     return (
       <div>
-        <p>{this.state.error}</p>
+        <p>{this.state.message}</p>
         <input id="email" ref="email" type="email" placeholder="Email" />
           <br />
         <input id="password" ref="password" type="password" placeholder="Password" />
           <br />
           <button onClick={this.logIn} type="button">LogIn</button>
-          <button type="button">SignUp</button>
+          <button onClick={this.signUp} type="button">SignUp</button>
           <button type="button">LogOut</button>
         </div>
   );
