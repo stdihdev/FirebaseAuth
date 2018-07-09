@@ -19,6 +19,7 @@ export default class Auth extends Component{
     this.logIn = this.logIn.bind(this);
     this.signUp = this.signUp.bind(this);
     this.logOut = this.logOut.bind(this);
+    this.googleSignIn = this.googleSignIn.bind(this);
   }
   logIn(){
     let email = this.refs.email.value;
@@ -33,6 +34,9 @@ export default class Auth extends Component{
     .catch((error) => {
       this.setState({message: error.message});
     });
+  }
+  googleSignIn(){
+    //
   }
   signUp(){
     let email = this.refs.email.value;
@@ -66,6 +70,7 @@ export default class Auth extends Component{
           <button onClick={this.logIn} type="button">LogIn</button>
           <button onClick={this.signUp} type="button">SignUp</button>
           <button onClick={this.logOut} style={{display: 'none'}} ref="logoutBtn" type="button">LogOut</button>
+          <button onClick={this.googleSignIn} type="button">Sign In with Google</button>
         </div>
   );
   }
