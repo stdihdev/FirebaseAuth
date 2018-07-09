@@ -36,7 +36,19 @@ export default class Auth extends Component{
     });
   }
   googleSignIn(){
-    //
+    let provider = new firebase.auth.GoogleAuthProvider();
+    let googleSignInAttempt = firebase.auth().signInWithPopup(provider);
+
+    googleSignInAttempt
+    .then(result => {
+      firebase.database().ref('users/'+result.user.uid).set({
+        email: result.user.email,
+        name: result.user.displayName
+      });
+    })
+    .catch(error => {
+      this.setState({message: error.message});
+    });
   }
   signUp(){
     let email = this.refs.email.value;
@@ -46,7 +58,7 @@ export default class Auth extends Component{
     signupAttempt
     .then( user => {
       this.setState({message: 'Welcome ' + user.email});
-      firebase.database().ref('users/' + user.uid).set({
+      firebase.database().ref('users/'+user.uid).set({
         email: user.email
       });
     })
