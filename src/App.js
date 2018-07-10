@@ -6,7 +6,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Auth App</h1>
+        <h1>Firebase Auth</h1>
         <Auth />
       </div>
     );
