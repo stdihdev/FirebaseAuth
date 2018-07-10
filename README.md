@@ -2,7 +2,7 @@
 
 > A very simple React based web app which does nothing but authenticates user via E-mail and Google account provided by Firebase and database support. 
 
-> Check it out [here](https://authen-app.herokuapp.com/)
+Check it out [here](https://authen-app.herokuapp.com/)
 
 ## Instructions
 
