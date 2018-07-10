@@ -16,20 +16,23 @@ export default class Auth extends Component{
   constructor(props){
     super(props);
     this.state = {message: ''};
-    this.logIn = this.logIn.bind(this);
+    this.signIn = this.signIn.bind(this);
     this.signUp = this.signUp.bind(this);
-    this.logOut = this.logOut.bind(this);
+    this.signOut = this.signOut.bind(this);
     this.googleSignIn = this.googleSignIn.bind(this);
   }
-  logIn(){
+  signIn(){
     let email = this.refs.email.value;
     let password = this.refs.password.value;
-    let loginAttempt = firebase.auth().signInWithEmailAndPassword(email, password);
+    let signinAttempt = firebase.auth().signInWithEmailAndPassword(email, password);
 
-    loginAttempt
+    signinAttempt
     .then(user => {
       this.setState({message: 'Successfully signed in!'});
-      this.refs.logoutBtn.style.display = 'block';
+      this.refs.signoutBtn.style.display = 'block';
+      this.refs.signinBtn.style.display = 'none';
+      this.refs.signupBtn.style.display = 'none';
+      this.refs.signinWithGoogleBtn.style.display = 'none';
     })
     .catch((error) => {
       this.setState({message: error.message});
@@ -45,6 +48,11 @@ export default class Auth extends Component{
         email: result.user.email,
         name: result.user.displayName
       });
+      this.setState({message: 'Successfully signed in with Google account'});
+      this.refs.signoutBtn.style.display = 'block';
+      this.refs.signinBtn.style.display = 'none';
+      this.refs.signupBtn.style.display = 'none';
+      this.refs.signinWithGoogleBtn.style.display = 'none';
     })
     .catch(error => {
       this.setState({message: error.message});
@@ -66,10 +74,20 @@ export default class Auth extends Component{
       this.setState({message: error.message});
     });
   }
-  logOut(){
-    firebase.auth().signOut();
-    this.setState({message: 'Successfully signed out!'});
-    this.refs.logoutBtn.style.display = 'none';
+  signOut(){
+    let signOutAttempt = firebase.auth().signOut();
+
+    signOutAttempt
+    .then( () => {this.setState({message: 'Successfully signed out!'});
+    this.refs.signoutBtn.style.display = 'none';
+    this.refs.signinBtn.style.display = 'block';
+    this.refs.signupBtn.style.display = 'block';
+    this.refs.signinWithGoogleBtn.style.display = 'block';
+  })
+  .catch(error => {
+    this.setState({message: error.message});
+  });
+
   }
   render(){
     return (
@@ -79,10 +97,10 @@ export default class Auth extends Component{
           <br />
         <input id="password" ref="password" type="password" placeholder="Password" />
           <br />
-          <button onClick={this.logIn} type="button">LogIn</button>
-          <button onClick={this.signUp} type="button">SignUp</button>
-          <button onClick={this.logOut} style={{display: 'none'}} ref="logoutBtn" type="button">LogOut</button>
-          <button onClick={this.googleSignIn} type="button">Sign In with Google</button>
+          <button onClick={this.signIn} ref="signinBtn" type="button">Sign In</button>
+          <button onClick={this.signUp} ref="signupBtn" type="button">Sign Up</button>
+          <button onClick={this.signOut} style={{display: 'none'}} ref="signoutBtn" type="button">Sign Out</button>
+          <button onClick={this.googleSignIn} ref="signinWithGoogleBtn" type="button">Sign In with Google</button>
         </div>
   );
   }
