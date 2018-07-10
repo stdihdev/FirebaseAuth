@@ -14,6 +14,8 @@
 - Now run ```npm start``` 
 - Fire up your favourite browser and navigate to ```localhost:8080```
 
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
