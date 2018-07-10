@@ -1,3 +1,5 @@
+> A very simple React based web app which does nothing but authenticates user via E-mail and Google account provided by Firebase and database support. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
