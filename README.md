@@ -6,7 +6,7 @@
 
 ## Instructions
 
-> To set up locally
+**To set up locally**
 
 - Clone the repository
 - Navigate to the project directory via command line.
