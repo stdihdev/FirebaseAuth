@@ -24,6 +24,7 @@ export default class Auth extends Component{
   signIn(){
     let email = this.refs.email.value;
     let password = this.refs.password.value;
+    this.refs.messages.style.display = 'block';
     let signinAttempt = firebase.auth().signInWithEmailAndPassword(email, password);
 
     signinAttempt
@@ -41,6 +42,7 @@ export default class Auth extends Component{
   googleSignIn(){
     let provider = new firebase.auth.GoogleAuthProvider();
     let googleSignInAttempt = firebase.auth().signInWithPopup(provider);
+    this.refs.messages.style.display = 'block';
 
     googleSignInAttempt
     .then(result => {
@@ -61,6 +63,7 @@ export default class Auth extends Component{
   signUp(){
     let email = this.refs.email.value;
     let password = this.refs.password.value;
+    this.refs.messages.style.display = 'block';
     let signupAttempt = firebase.auth().createUserWithEmailAndPassword(email, password);
 
     signupAttempt
@@ -75,6 +78,7 @@ export default class Auth extends Component{
     });
   }
   signOut(){
+    this.refs.messages.style.display = 'block';
     let signOutAttempt = firebase.auth().signOut();
 
     signOutAttempt
@@ -91,16 +95,19 @@ export default class Auth extends Component{
   }
   render(){
     return (
-      <div>
-        <p>{this.state.message}</p>
+      <div id="container">
+        <p ref="messages" style={{display: 'none'}}>{this.state.message}</p>
         <input id="email" ref="email" type="email" placeholder="Email" />
           <br />
         <input id="password" ref="password" type="password" placeholder="Password" />
           <br />
           <button onClick={this.signIn} ref="signinBtn" type="button">Sign In</button>
+          <br />
           <button onClick={this.signUp} ref="signupBtn" type="button">Sign Up</button>
+          <br />
           <button onClick={this.signOut} style={{display: 'none'}} ref="signoutBtn" type="button">Sign Out</button>
-          <button onClick={this.googleSignIn} ref="signinWithGoogleBtn" type="button">Sign In with Google</button>
+          <br />
+        <button onClick={this.googleSignIn} ref="signinWithGoogleBtn" type="button">Sign In with Google</button>
         </div>
   );
   }
