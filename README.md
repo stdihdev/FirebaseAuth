@@ -1,4 +1,18 @@
+<h1 align="center">Firebase Auth</h1>
+
 > A very simple React based web app which does nothing but authenticates user via E-mail and Google account provided by Firebase and database support. 
+
+> Check it out [here](https://authen-app.herokuapp.com/)
+
+## Instructions
+
+> To set up locally
+
+- Clone the repository
+- Navigate to the project directory via command line.
+- Run ```npm install```
+- Now run ```npm start``` 
+- Fire up your favourite browser and navigate to ```localhost:8080```
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
