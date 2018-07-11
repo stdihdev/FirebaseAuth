@@ -15,6 +15,9 @@ h1{
   border: none;
   box-shadow: 0 0 11px #2e2e2e;
 }
+.info{
+  display: none;
+}
 p{
   background-color: #832;
   color: #fff;
@@ -55,4 +58,38 @@ button:hover{
 }
 button:focus{
   transform: translateY(6px);
+}
+/* Media Queries */
+@media screen and (max-width: 1024px){
+  @keyframes fadeIn{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+  }
+  #container{
+    display: none;
+  }
+  h1{
+    font-size: 2.4rem;
+    margin-bottom: 15vh;
+  }
+  .info{
+    display: block;
+    font-size: 1.6rem;
+    text-align: center;
+    box-shadow: 0 0 11px rgb(.3, .3, .3);
+    padding: 5vh;
+    font-weight: bolder;
+    color: #666;
+    background-color: rgba(.3, .3, .3, .2);
+  }
+  h1, .info{
+    animation-name: fadeIn;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+  }
+
 }
